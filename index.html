@@ -615,6 +615,66 @@ canvas{display:block;width:100%}
 @keyframes tOut{to{transform:translateX(28px);opacity:0}}
 .toast.bye{animation:tOut .22s ease forwards}
 
+/* ─── WEIGHT CELEBRATION POPUP ─── */
+#wtCelebration{
+  position:fixed;inset:0;z-index:9998;
+  display:flex;align-items:center;justify-content:center;
+  padding:1.5rem;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .25s ease;
+}
+#wtCelebration.show{opacity:1;pointer-events:auto}
+.wtc-card{
+  position:relative;
+  max-width:380px;width:100%;
+  border-radius:28px;
+  padding:2.2rem 1.8rem 1.8rem;
+  text-align:center;
+  box-shadow:0 24px 80px rgba(0,0,0,.35);
+  transform:scale(.85) translateY(30px);
+  transition:transform .4s cubic-bezier(.22,1,.36,1);
+  cursor:pointer;
+  overflow:hidden;
+}
+#wtCelebration.show .wtc-card{transform:scale(1) translateY(0)}
+.wtc-card.down{background:linear-gradient(145deg,#059669,#10b981,#34d399)}
+.wtc-card.up{background:linear-gradient(145deg,#7c3aed,#5b3aff,#a855f7)}
+.wtc-card.first{background:linear-gradient(145deg,#0369a1,#0ea5e9,#38bdf8)}
+.wtc-sparkle{
+  position:absolute;inset:0;overflow:hidden;pointer-events:none;
+}
+.wtc-sparkle span{
+  position:absolute;width:6px;height:6px;border-radius:50%;
+  animation:sparkleFloat 2s ease-in-out infinite;
+  opacity:.6;
+}
+@keyframes sparkleFloat{
+  0%{transform:translateY(0) scale(1);opacity:.7}
+  50%{transform:translateY(-18px) scale(1.3);opacity:1}
+  100%{transform:translateY(0) scale(1);opacity:.7}
+}
+.wtc-emoji{font-size:3.8rem;margin-bottom:.6rem;animation:sumEmojiIn .5s cubic-bezier(.22,1,.36,1)}
+.wtc-headline{
+  font-family:var(--ff-d);font-size:1.7rem;font-style:italic;
+  color:#fff;margin-bottom:.45rem;line-height:1.2;
+  text-shadow:0 2px 10px rgba(0,0,0,.2);
+}
+.wtc-body{
+  font-size:.9rem;color:rgba(255,255,255,.9);
+  line-height:1.6;margin-bottom:1.2rem;
+}
+.wtc-stat{
+  background:rgba(255,255,255,.2);border-radius:12px;
+  padding:.6rem 1rem;display:inline-block;
+  font-size:.82rem;font-weight:700;color:#fff;
+  margin-bottom:.9rem;backdrop-filter:blur(4px);
+}
+.wtc-dismiss{
+  font-size:.74rem;color:rgba(255,255,255,.65);
+  letter-spacing:.06em;text-transform:uppercase;
+}
+
 /* ─── EMPTY ─── */
 .empty{text-align:center;padding:3rem 1.25rem;color:var(--t3)}
 .empty-ico{font-size:3rem;margin-bottom:.72rem}
@@ -693,6 +753,49 @@ canvas{display:block;width:100%}
 .plan-logged:hover{background:var(--ok);color:#fff;transform:translateY(-1px);box-shadow:0 3px 10px rgba(16,185,129,.3)}
 .plan-logged:active{transform:translateY(0)}
 .plan-logged-ico{font-size:.9rem;flex-shrink:0}
+
+/* ─── WEIGHT TRACKER ─── */
+.wt-card{
+  background:var(--card);border:1.5px solid var(--border);border-radius:var(--r3);
+  padding:1.4rem 1.4rem 1rem;margin-bottom:1.4rem;box-shadow:var(--sh1);
+  position:relative;overflow:hidden;
+}
+.wt-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,#10b981,#06b6d4,#5b3aff);
+}
+.wt-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.6rem}
+.wt-card-title{font-family:var(--ff-d);font-size:1.25rem;font-style:italic;margin-bottom:.15rem}
+.wt-card-sub{font-size:.78rem;color:var(--t3)}
+.wt-log-btn{
+  background:linear-gradient(135deg,#10b981,#06b6d4);color:#fff;
+  border:none;border-radius:var(--rpill);padding:.5rem 1.1rem;
+  font-size:.8rem;font-weight:700;cursor:pointer;white-space:nowrap;
+  transition:opacity .15s,transform .15s;box-shadow:0 2px 10px rgba(16,185,129,.3);
+}
+.wt-log-btn:hover{opacity:.88;transform:translateY(-1px)}
+.wt-log-btn:active{transform:translateY(0)}
+.wt-chart-wrap{margin:0 -.3rem .5rem;position:relative}
+.wt-stats-row{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;
+  margin-top:.9rem;padding-top:.9rem;border-top:1px solid var(--border);
+}
+.wt-stat{text-align:center}
+.wt-stat-val{font-family:var(--ff-d);font-size:1.25rem;font-style:italic;line-height:1;margin-bottom:.15rem}
+.wt-stat-val.down{color:var(--ok)}
+.wt-stat-val.up{color:var(--warn)}
+.wt-stat-label{font-size:.6rem;text-transform:uppercase;letter-spacing:.05em;color:var(--t3);font-weight:700}
+.wt-no-data{text-align:center;padding:2.5rem 1rem;color:var(--t2)}
+.wt-encouragement{
+  border-radius:var(--r2);padding:.75rem 1rem;margin-top:.85rem;
+  font-size:.83rem;font-weight:600;line-height:1.5;
+  animation:sumEmojiIn .5s cubic-bezier(.22,1,.36,1);
+}
+.wt-encouragement.enc-down{background:var(--okl);border:1px solid var(--ok);color:var(--ok)}
+.wt-encouragement.enc-up{background:var(--warnl);border:1px solid var(--warn);color:var(--warn)}
+@media(max-width:640px){
+  .wt-stats-row{grid-template-columns:repeat(2,1fr)}
+}
 
 /* ─── ONBOARDING ─── */
 #onboarding{
@@ -894,7 +997,29 @@ canvas{display:block;width:100%}
 
 <!-- TRACKER -->
 <section class="page" id="page-track">
-  <div class="ph"><div><h1 class="pt">Progress Tracker</h1><p class="ps">History and charts</p></div></div>
+  <div class="ph"><div><h1 class="pt">Progress Tracker</h1><p class="ps">History, charts & weight</p></div></div>
+
+  <!-- Weight Tracker Card -->
+  <div class="wt-card" id="wtCard">
+    <div class="wt-card-header">
+      <div>
+        <div class="wt-card-title">⚖️ Weight Tracker</div>
+        <div class="wt-card-sub" id="wtSub">Log your weight to track progress</div>
+      </div>
+      <button class="wt-log-btn" onclick="openWeightLog()">+ Log Weight</button>
+    </div>
+    <div id="wtChartWrap" class="wt-chart-wrap">
+      <canvas id="cWeight" height="160" style="height:160px"></canvas>
+    </div>
+    <div class="wt-stats-row" id="wtStatsRow"></div>
+    <div class="wt-no-data hide" id="wtNoData">
+      <div style="font-size:2.5rem">⚖️</div>
+      <div style="font-weight:700;margin:.4rem 0 .2rem">No weight logged yet</div>
+      <div style="font-size:.82rem;color:var(--t3)">Tap "+ Log Weight" to start tracking</div>
+    </div>
+    <div class="wt-encouragement hide" id="wtEncouragement"></div>
+  </div>
+
   <div class="charts">
     <div class="chartbox"><div class="chartitle">Workouts Per Week</div><canvas id="cBar" height="200" style="height:200px"></canvas></div>
     <div class="chartbox"><div class="chartitle">Total Volume Over Time</div><canvas id="cLine" height="200" style="height:200px"></canvas></div>
@@ -933,20 +1058,14 @@ canvas{display:block;width:100%}
       </div>
     </div>
     <div class="stsec">
-      <div class="sttitle">PRs & Weight Recommendations</div>
-      <div class="strow">
-        <div><div style="font-weight:600">Enable PR Recommendations</div><div class="tc" style="font-size:.78rem">Auto-suggest working weights in workouts</div></div>
-        <label class="sw"><input type="checkbox" id="prToggle" onchange="setPREnabled(this.checked)"><span class="sl"></span></label>
+      <div class="sttitle">Personal Records (PRs)</div>
+      <p class="tc" style="font-size:.8rem;margin-bottom:.85rem;line-height:1.6">Your <strong>1-Rep Max (1RM)</strong> is the heaviest weight you can lift for exactly one rep. FitQuest uses the Epley formula to suggest working weights automatically — e.g. for 5 reps we'll recommend ~87% of your 1RM.</p>
+      <div style="margin-bottom:.5rem">
+        <input type="search" class="fc" id="prExSearch" placeholder="🔍 Search exercise…" oninput="filterPRExList()" style="margin-bottom:.38rem">
+        <select class="fc" id="prExSel" size="5" style="height:130px;border-radius:var(--r1)"></select>
       </div>
-      <div id="prSection" class="hide">
-        <p class="tc" style="font-size:.77rem;margin:.65rem 0 .5rem">Formula: <code>Working = 1RM × (1 − 0.025 × reps)</code> (Epley). e.g. 5 reps → ~87.5% of 1RM.</p>
-        <div style="margin-bottom:.5rem;margin-top:.65rem">
-          <input type="search" class="fc" id="prExSearch" placeholder="🔍 Search exercise…" oninput="filterPRExList()" style="margin-bottom:.38rem">
-          <select class="fc" id="prExSel" size="5" style="height:130px;border-radius:var(--r1)"></select>
-        </div>
-        <button class="btn btn-s btn-sm w100" onclick="openPRModal()" style="margin-bottom:.75rem">+ Add / Edit PR for selected</button>
-        <div id="prList"></div>
-      </div>
+      <button class="btn btn-s btn-sm w100" onclick="openPRModal()" style="margin-bottom:.75rem">+ Set PR for selected exercise</button>
+      <div id="prList"></div>
     </div>
     <div class="stsec">
       <div class="sttitle">Data</div>
@@ -969,11 +1088,11 @@ canvas{display:block;width:100%}
 <nav id="mobileNav">
   <div class="mob-nav-items">
     <button class="mob-nav-item" data-p="dash" onclick="go('dash')"><span class="mob-nav-ico">🏠</span>Home</button>
+    <button class="mob-nav-item" data-p="lib" onclick="go('lib')"><span class="mob-nav-ico">📚</span>Library</button>
     <button class="mob-nav-item" data-p="start" onclick="go('start')"><span class="mob-nav-ico">▶️</span>Start</button>
-    <button class="mob-nav-item" data-p="build" onclick="go('build')"><span class="mob-nav-ico">🔨</span>Build</button>
     <button class="mob-nav-item" data-p="plan" onclick="go('plan')"><span class="mob-nav-ico">📅</span>Plan</button>
     <button class="mob-nav-item" data-p="track" onclick="go('track')"><span class="mob-nav-ico">📈</span>Track</button>
-    <button class="mob-nav-item" data-p="set" onclick="go('set')"><span class="mob-nav-ico">⚙️</span>Settings</button>
+    <button class="mob-nav-item" data-p="set" onclick="go('set')"><span class="mob-nav-ico">⚙️</span>More</button>
   </div>
 </nav>
 
@@ -1171,15 +1290,37 @@ canvas{display:block;width:100%}
 <!-- PR modal -->
 <div class="ov" id="ovPR">
   <div class="modal">
-    <div class="mhd"><h2 class="mtitle">Edit PR</h2><button class="mclose" onclick="closeOv('ovPR')">×</button></div>
-    <p class="tc" style="font-size:.84rem;margin-bottom:.85rem">Exercise: <strong id="prExName"></strong></p>
-    <div class="fg-row c2">
-      <div><label class="lbl" id="prRmLbl">1RM</label><input type="number" class="fc" id="pr1RM" placeholder="e.g. 225" min="0" step="1"></div>
-      <div><label class="lbl">Avg RPE (1–10)</label><input type="number" class="fc" id="prRPE" placeholder="8" min="1" max="10" step=".5"></div>
+    <div class="mhd"><h2 class="mtitle">Set Personal Record</h2><button class="mclose" onclick="closeOv('ovPR')">×</button></div>
+    <p class="tc" style="font-size:.9rem;font-weight:700;margin-bottom:.35rem">Exercise: <strong id="prExName"></strong></p>
+    <div style="background:var(--accl);border:1px solid var(--acc);border-radius:var(--r1);padding:.7rem .85rem;margin-bottom:.9rem;font-size:.78rem;line-height:1.6;color:var(--acc)">
+      <strong>What is a 1RM?</strong> Your 1-Rep Max (1RM) is the heaviest weight you can lift for exactly one full rep with good form. FitQuest uses this to automatically suggest how much you should lift during workouts — for example, for 5 reps we'll recommend ~87% of your 1RM.
+    </div>
+    <div class="fg">
+      <label class="lbl" id="prRmLbl">My 1RM (max single rep)</label>
+      <input type="number" class="fc" id="pr1RM" placeholder="e.g. 225 lbs — your absolute max for 1 rep" min="0" step="1">
     </div>
     <div class="mfoot">
       <button class="btn btn-s" onclick="closeOv('ovPR')">Cancel</button>
       <button class="btn btn-p" onclick="savePR()">Save PR</button>
+    </div>
+  </div>
+</div>
+
+<!-- Weight Log Modal -->
+<div class="ov" id="ovWeightLog">
+  <div class="modal" style="max-width:380px">
+    <div class="mhd"><h2 class="mtitle">Log Weight</h2><button class="mclose" onclick="closeOv('ovWeightLog')">×</button></div>
+    <div class="fg">
+      <label class="lbl" id="wtLogLbl">Your weight today</label>
+      <input type="number" class="fc" id="wtLogVal" placeholder="e.g. 185" min="0" step=".1" style="font-size:1.3rem;text-align:center;padding:1rem">
+    </div>
+    <div class="fg">
+      <label class="lbl">Date</label>
+      <input type="date" class="fc" id="wtLogDate">
+    </div>
+    <div class="mfoot">
+      <button class="btn btn-s" onclick="closeOv('ovWeightLog')">Cancel</button>
+      <button class="btn btn-ok" onclick="saveWeightLog()">Save ✓</button>
     </div>
   </div>
 </div>
@@ -1244,6 +1385,17 @@ canvas{display:block;width:100%}
     <div class="mfoot" style="justify-content:center">
       <button class="btn btn-s btn-lg" onclick="closeOv('ovLogSummary')">Close</button>
     </div>
+  </div>
+</div>
+
+<div id="wtCelebration" onclick="dismissWtCelebration()">
+  <div class="wtc-card" id="wtcCard">
+    <div class="wtc-sparkle" id="wtcSparkle"></div>
+    <div class="wtc-emoji" id="wtcEmoji">🎉</div>
+    <div class="wtc-headline" id="wtcHeadline">Amazing!</div>
+    <div class="wtc-body" id="wtcBody">Keep going!</div>
+    <div class="wtc-stat" id="wtcStat"></div>
+    <div class="wtc-dismiss">Tap anywhere to continue</div>
   </div>
 </div>
 
@@ -1362,7 +1514,7 @@ const EX_BASE = [
 /* ═══════════════════════════════════════════════════════════════
    STORAGE
 ═══════════════════════════════════════════════════════════════ */
-const K={WK:'fq4_wk',PL:'fq4_pl',LG:'fq4_lg',TH:'fq4_th',UN:'fq4_un',MT:'fq4_mt',PR:'fq4_pr',PRE:'fq4_pre',CX:'fq4_cx'};
+const K={WK:'fq4_wk',PL:'fq4_pl',LG:'fq4_lg',TH:'fq4_th',UN:'fq4_un',MT:'fq4_mt',PR:'fq4_pr',PRE:'fq4_pre',CX:'fq4_cx',WTL:'fq4_wtl'};
 const sg=(k,d=null)=>{try{const v=localStorage.getItem(k);return v!==null?JSON.parse(v):d}catch{return d}};
 const ss=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
 const gCX=()=>sg(K.CX,[]);
@@ -1382,10 +1534,13 @@ const gTheme=()=>sg(K.TH,'light');const sTheme=t=>ss(K.TH,t);
 const gUnit=()=>sg(K.UN,'imperial');const sUnit=u=>ss(K.UN,u);
 const gMet=()=>sg(K.MT,{});const sMet=m=>ss(K.MT,m);
 const gPRs=()=>sg(K.PR,{});const sPRs=v=>ss(K.PR,v);
-const gPRE=()=>sg(K.PRE,false);const sPRE=v=>ss(K.PRE,v);
-const expAll=()=>({v:4,d:new Date().toISOString(),workouts:gWks(),plan:gPl(),logs:gLogs(),theme:gTheme(),unit:gUnit(),metrics:gMet(),prs:gPRs(),prEnabled:gPRE(),customEx:gCX()});
-const impAll=d=>{if(!d||d.v<1)throw new Error('Invalid format');sWks(d.workouts||[]);sPl(d.plan||{});sLogs(d.logs||[]);if(d.theme)sTheme(d.theme);if(d.unit)sUnit(d.unit);if(d.metrics)sMet(d.metrics);if(d.prs)sPRs(d.prs);if(d.prEnabled!==undefined)sPRE(d.prEnabled);if(d.customEx)sCX(d.customEx)};
-const resetAll=()=>[K.WK,K.PL,K.LG,K.MT,K.PR,K.PRE,K.CX].forEach(k=>localStorage.removeItem(k));
+const gPRE=()=>true; // PRs always enabled — no toggle
+const sPRE=v=>{}; // no-op kept for compatibility
+const gWtLogs=()=>sg(K.WTL,[]);const sWtLogs=v=>ss(K.WTL,v);
+const addWtLog=e=>{const a=gWtLogs();a.push(e);a.sort((a,b)=>a.date.localeCompare(b.date));sWtLogs(a)};
+const expAll=()=>({v:5,d:new Date().toISOString(),workouts:gWks(),plan:gPl(),logs:gLogs(),theme:gTheme(),unit:gUnit(),metrics:gMet(),prs:gPRs(),customEx:gCX(),weightLogs:gWtLogs()});
+const impAll=d=>{if(!d||d.v<1)throw new Error('Invalid format');sWks(d.workouts||[]);sPl(d.plan||{});sLogs(d.logs||[]);if(d.theme)sTheme(d.theme);if(d.unit)sUnit(d.unit);if(d.metrics)sMet(d.metrics);if(d.prs)sPRs(d.prs);if(d.customEx)sCX(d.customEx);if(d.weightLogs)sWtLogs(d.weightLogs)};
+const resetAll=()=>[K.WK,K.PL,K.LG,K.MT,K.PR,K.PRE,K.CX,K.WTL].forEach(k=>localStorage.removeItem(k));
 
 /* ═══════════════════════════════════════════════════════════════
    HELPERS
@@ -1406,12 +1561,11 @@ const convW=(v,to)=>to==='metric'?lbsToKg(v):kgToLbs(v);
 const fmtT=s=>`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
 const delay=ms=>new Promise(r=>setTimeout(r,ms));
 const calcRec=(exId,reps)=>{
-  if(!gPRE())return null;const pr=gPRs()[exId];
+  const pr=gPRs()[exId];
   if(!pr?.rm1||pr.rm1<=0)return null;
-  // Epley: Working = 1RM × (1 − 0.025 × reps), RPE-scaled
+  // Epley: Working = 1RM × (1 − 0.025 × reps)
   const rf=1-0.025*(reps||5);
-  const rpef=pr.rpe?1-(10-Math.min(pr.rpe,10))*0.025:1;
-  return Math.max(Math.round(pr.rm1*rf*rpef/2.5)*2.5,0);
+  return Math.max(Math.round(pr.rm1*rf/2.5)*2.5,0);
 };
 const bm=m=>`<span class="badge bm">${esc(m)}</span>`;
 const be=e=>`<span class="badge be">${esc(e)}</span>`;
@@ -1475,7 +1629,7 @@ function onShow(p){
   if(p==='build')renderBuildList();
   if(p==='start')renderStartPage();
   if(p==='plan')renderPlan();
-  if(p==='track')renderTrack();
+  if(p==='track'){renderTrack();renderWeightTracker();}
   if(p==='set')renderSettings();
 }
 document.querySelectorAll('.navlinks a[data-p]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();go(a.dataset.p)}));
@@ -1623,7 +1777,7 @@ function showEx(id){
   ge('exDetTags').innerHTML=bm(e.muscle)+be(e.equip)+bd(e.diff)+(e.custom?'<span class="custom-badge">Custom</span>':'');
   const pr=gPRs()[id];
   const prEl=ge('exDetPR');
-  if(gPRE()&&pr?.rm1){prEl.className='';prEl.innerHTML=`<div class="pill tacc" style="margin-top:.65rem">🏆 1RM: ${pr.rm1} ${uLabel()}${pr.rpe?' · RPE '+pr.rpe:''}</div>`;}
+  if(gPRE()&&pr?.rm1){prEl.className='';prEl.innerHTML=`<div class="pill tacc" style="margin-top:.65rem">🏆 1RM: ${pr.rm1} ${uLabel()}</div>`;}
   else prEl.className='hide';
   openOv('ovEx');
 }
@@ -2544,7 +2698,260 @@ function drawLine(){
     }
   });
 }
-window.addEventListener('resize',()=>{if(curPage==='track')setTimeout(drawCharts,160)});
+window.addEventListener('resize',()=>{if(curPage==='track'){setTimeout(drawCharts,160);setTimeout(()=>{const logs=gWtLogs();if(logs.length)drawWeightChart(logs,uLabel())},160);}});
+
+/* ═══════════════════════════════════════════════════════════════
+   WEIGHT TRACKER
+═══════════════════════════════════════════════════════════════ */
+function openWeightLog(){
+  const u=uLabel();
+  ge('wtLogLbl').textContent=`Your weight today (${u})`;
+  ge('wtLogDate').value=today();
+  ge('wtLogVal').value='';
+  openOv('ovWeightLog');
+  setTimeout(()=>ge('wtLogVal').focus(),80);
+}
+
+function saveWeightLog(){
+  const val=parseFloat(ge('wtLogVal').value);
+  if(!val||val<=0){toast('Enter a valid weight','bad');return}
+  const date=ge('wtLogDate').value||today();
+  const prevLogs=gWtLogs();
+  const prevLatest=prevLogs.length?prevLogs[prevLogs.length-1]:null;
+  // Replace existing entry for same date
+  const idx=prevLogs.findIndex(l=>l.date===date);
+  const entry={date,weight:val,unit:gUnit()};
+  if(idx>=0)prevLogs[idx]=entry; else prevLogs.push(entry);
+  prevLogs.sort((a,b)=>a.date.localeCompare(b.date));
+  sWtLogs(prevLogs);
+  closeOv('ovWeightLog');
+  renderWeightTracker();
+  showWeightCelebration(val, prevLatest?.weight||null, gUnit());
+}
+
+// Called from saveMetrics and onboarding — auto-logs weight without showing the modal
+function autoLogWeight(val, unit){
+  if(!val||val<=0)return;
+  const date=today();
+  const logs=gWtLogs();
+  const prevLatest=logs.length?logs[logs.length-1]:null;
+  const idx=logs.findIndex(l=>l.date===date);
+  const entry={date,weight:val,unit};
+  if(idx>=0)logs[idx]=entry; else logs.push(entry);
+  logs.sort((a,b)=>a.date.localeCompare(b.date));
+  sWtLogs(logs);
+  if(curPage==='track')renderWeightTracker();
+  showWeightCelebration(val, prevLatest?.weight||null, unit);
+}
+
+const DOWN_MESSAGES=[
+  {emoji:'🔥',headline:'You\'re on fire!',body:'Down {diff} {u} from last time. Your consistency is unreal — keep that momentum going.'},
+  {emoji:'🎉',headline:'Let\'s GO!',body:'That\'s {diff} {u} down! Every single rep and every meal is paying off. You\'re crushing it.'},
+  {emoji:'⬇️',headline:'Dropping weight!',body:'Down {diff} {u} — the hard work is showing. You\'re closer to your goal than you were yesterday.'},
+  {emoji:'🏆',headline:'Progress unlocked!',body:'{diff} {u} lighter than last time. That\'s not luck — that\'s discipline in action.'},
+  {emoji:'💪',headline:'Beast mode activated.',body:'Down {diff} {u}. Whatever you\'re doing — keep doing it. The results speak for themselves.'},
+  {emoji:'🚀',headline:'Launching toward your goals!',body:'{diff} {u} down. You show up, you put in the work, and the scale is noticing. Incredible.'},
+  {emoji:'✨',headline:'Look at you go!',body:'Down {diff} {u} — you\'re making it look effortless. The grind is real and so are the results.'},
+];
+const UP_MESSAGES=[
+  {emoji:'💡',headline:'Building something great.',body:'Up {diff} {u} from last time. If you\'re in a bulk phase, this is exactly the plan. Stay consistent.'},
+  {emoji:'🍽️',headline:'Check in with your nutrition.',body:'Weight up {diff} {u}. Small adjustments to what\'s on your plate can make a big difference this week.'},
+  {emoji:'🔄',headline:'Fluctuations are normal.',body:'Up {diff} {u} — your body weight shifts daily. Track weekly trends, not day-to-day. Stay the course.'},
+  {emoji:'💪',headline:'Muscle weighs more than fat.',body:'Up {diff} {u}. If you\'ve been lifting hard, this could be muscle. Keep tracking and trust the process.'},
+  {emoji:'🎯',headline:'Refocus and reset.',body:'Up {diff} {u} this time. Every check-in is useful data. Dial in sleep, hydration, and nutrition today.'},
+];
+const FIRST_MESSAGES=[
+  {emoji:'🌟',headline:'Your journey starts now!',body:'You just logged your first weight. This is where it all begins — we\'ll track every step from here.'},
+  {emoji:'📊',headline:'Baseline set!',body:'First entry locked in at {w} {u}. Come back regularly and we\'ll show you exactly how you\'re progressing.'},
+  {emoji:'🚀',headline:'Day one. Let\'s build.',body:'Weight logged: {w} {u}. The hardest part is starting — and you already did it. Let\'s see where this goes.'},
+];
+
+function showWeightCelebration(newW, prevW, unit){
+  const u=unit==='metric'?'kg':'lbs';
+  let msg, type;
+  if(prevW===null){
+    msg=FIRST_MESSAGES[Math.floor(Math.random()*FIRST_MESSAGES.length)];
+    type='first';
+  } else {
+    const diff=+(newW-prevW).toFixed(1);
+    const absDiff=Math.abs(diff);
+    if(diff<-0.1){
+      msg=DOWN_MESSAGES[Math.floor(Math.random()*DOWN_MESSAGES.length)];
+      type='down';
+    } else if(diff>0.1){
+      msg=UP_MESSAGES[Math.floor(Math.random()*UP_MESSAGES.length)];
+      type='up';
+    } else {
+      // Same weight
+      type='first';
+      msg={emoji:'⚖️',headline:'Rock solid.',body:`Holding steady at ${newW} ${u}. Consistency is its own kind of victory. Keep showing up.`};
+    }
+    const sign=diff<0?'-':'+';
+    const statText=diff!==0?`${sign}${absDiff} ${u} from last time`:`${newW} ${u} — same as last time`;
+    ge('wtcStat').textContent=statText;
+  }
+  if(prevW===null){
+    ge('wtcStat').textContent=`${newW} ${u} — first entry`;
+  }
+
+  // Fill in dynamic text
+  const diff=prevW!==null?Math.abs(+(newW-prevW).toFixed(1)):0;
+  const headline=msg.headline;
+  const body=msg.body.replace('{diff}',diff).replace('{u}',u).replace('{w}',newW).replace('{u}',u);
+
+  ge('wtcEmoji').textContent=msg.emoji;
+  ge('wtcHeadline').textContent=headline;
+  ge('wtcBody').textContent=body;
+  ge('wtcCard').className='wtc-card '+type;
+
+  // Generate sparkle dots
+  const sparkle=ge('wtcSparkle');
+  sparkle.innerHTML='';
+  const colors=type==='down'?['#fff','#d1fae5','#6ee7b7']:type==='up'?['#fff','#e9d5ff','#c4b5fd']:['#fff','#bae6fd','#7dd3fc'];
+  for(let i=0;i<14;i++){
+    const s=document.createElement('span');
+    s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;background:${colors[i%colors.length]};animation-delay:${(Math.random()*1.5).toFixed(2)}s;animation-duration:${(1.5+Math.random()).toFixed(2)}s;width:${4+Math.random()*5}px;height:${4+Math.random()*5}px`;
+    sparkle.appendChild(s);
+  }
+
+  const cel=ge('wtCelebration');
+  cel.classList.add('show');
+  // Auto dismiss after 6s
+  clearTimeout(cel._timer);
+  cel._timer=setTimeout(dismissWtCelebration,6000);
+}
+
+function dismissWtCelebration(){
+  const cel=ge('wtCelebration');
+  cel.classList.remove('show');
+  clearTimeout(cel._timer);
+}
+
+function renderWeightTracker(){
+  const logs=gWtLogs();
+  const u=uLabel();
+  const hasData=logs.length>0;
+
+  // Show/hide chart vs empty state
+  ge('wtChartWrap').style.display=hasData?'':'none';
+  ge('wtNoData').className=hasData?'wt-no-data hide':'wt-no-data';
+  ge('wtStatsRow').style.display=hasData?'':'none';
+
+  if(!hasData){
+    ge('wtEncouragement').className='wt-encouragement hide';
+    ge('wtSub').textContent='Log your weight to start tracking progress';
+    return;
+  }
+
+  // Stats
+  const latest=logs[logs.length-1];
+  const prev=logs.length>1?logs[logs.length-2]:null;
+  const first=logs[0];
+  const diff=prev?+(latest.weight-prev.weight).toFixed(1):null;
+  const totalDiff=+(latest.weight-first.weight).toFixed(1);
+
+  ge('wtSub').textContent=`Last logged: ${fmtDate(latest.date)} · ${latest.weight} ${u}`;
+
+  // Encouragement message
+  const enc=ge('wtEncouragement');
+  if(diff!==null&&Math.abs(diff)>=0.1){
+    if(diff<0){
+      enc.className='wt-encouragement enc-down';
+      const msgs=['🎉 Amazing! You\'re down '+Math.abs(diff)+' '+u+' — keep crushing it!','🔥 Down '+Math.abs(diff)+' '+u+' from last time. You\'re on a roll!','⬇️ Lost '+Math.abs(diff)+' '+u+' — incredible consistency!'];
+      enc.textContent=msgs[Math.floor(Date.now()/86400000)%msgs.length];
+    } else {
+      enc.className='wt-encouragement enc-up';
+      const msgs=['💪 Up '+diff+' '+u+' — if you\'re bulking, this is progress! If cutting, tighten up nutrition.','📈 Weight up '+diff+' '+u+'. Muscle gain? Or time to dial in the diet?','🔄 Up '+diff+' '+u+' from last time. Stay consistent and keep going!'];
+      enc.textContent=msgs[Math.floor(Date.now()/86400000)%msgs.length];
+    }
+    enc.classList.remove('hide');
+  } else {
+    enc.className='wt-encouragement hide';
+  }
+
+  // Stats row
+  const minW=Math.min(...logs.map(l=>l.weight));
+  const maxW=Math.max(...logs.map(l=>l.weight));
+  const diffSign=totalDiff>0?'+':'';
+  ge('wtStatsRow').innerHTML=`
+    <div class="wt-stat"><div class="wt-stat-val ${diff!==null&&diff<0?'down':diff!==null&&diff>0?'up':''}">${latest.weight}</div><div class="wt-stat-label">Current (${u})</div></div>
+    <div class="wt-stat"><div class="wt-stat-val ${totalDiff<0?'down':totalDiff>0?'up':''}">${diffSign}${totalDiff}</div><div class="wt-stat-label">Total Change</div></div>
+    <div class="wt-stat"><div class="wt-stat-val down">${minW}</div><div class="wt-stat-label">Lowest</div></div>
+    <div class="wt-stat"><div class="wt-stat-val">${logs.length}</div><div class="wt-stat-label">Entries</div></div>
+  `;
+
+  // Draw chart
+  drawWeightChart(logs,u);
+}
+
+function drawWeightChart(logs,u){
+  const c=ge('cWeight');if(!c)return;
+  const ctx=c.getContext('2d');const dpr=window.devicePixelRatio||1;
+  const W=c.offsetWidth||380,H=c.offsetHeight||160;
+  c.width=W*dpr;c.height=H*dpr;ctx.scale(dpr,dpr);
+
+  const ok=getCSS('--ok'),acc=getCSS('--acc'),t3=getCSS('--t3'),t1=getCSS('--t1'),bdr=getCSS('--border'),warn=getCSS('--warn');
+  ctx.clearRect(0,0,W,H);
+
+  if(logs.length<2){
+    // Single point — draw a dot and label
+    ctx.fillStyle=t3;ctx.font='12px Outfit,sans-serif';ctx.textAlign='center';
+    ctx.fillText('Log more entries to see your trend ✨',W/2,H/2);return;
+  }
+
+  const PAD={t:18,r:16,b:36,l:50};const cW=W-PAD.l-PAD.r,cH=H-PAD.t-PAD.b;
+  const vals=logs.map(l=>l.weight);
+  const minV=Math.min(...vals),maxV=Math.max(...vals);
+  const spread=maxV-minV||1;
+  const paddedMin=minV-spread*0.15,paddedMax=maxV+spread*0.15;
+  const tx=i=>PAD.l+(i/(logs.length-1))*cW;
+  const ty=v=>PAD.t+cH-((v-paddedMin)/(paddedMax-paddedMin))*cH;
+
+  // Grid lines
+  for(let i=0;i<=4;i++){
+    const y=PAD.t+cH*(i/4);
+    ctx.strokeStyle=bdr;ctx.lineWidth=1;ctx.setLineDash([3,4]);
+    ctx.beginPath();ctx.moveTo(PAD.l,y);ctx.lineTo(PAD.l+cW,y);ctx.stroke();
+    ctx.setLineDash([]);
+    const lv=paddedMax-(paddedMax-paddedMin)*(i/4);
+    ctx.fillStyle=t3;ctx.font='9px Outfit,sans-serif';ctx.textAlign='right';
+    ctx.fillText(lv.toFixed(lv%1?1:0),PAD.l-6,y+3);
+  }
+  ctx.setLineDash([]);
+
+  // Gradient fill — green if trending down, purple if up
+  const trending=vals[vals.length-1]<=vals[0];
+  const lineColor=trending?ok:warn;
+
+  const grd=ctx.createLinearGradient(0,PAD.t,0,PAD.t+cH);
+  grd.addColorStop(0,lineColor+'44');grd.addColorStop(1,lineColor+'00');
+  ctx.beginPath();
+  logs.forEach((l,i)=>i===0?ctx.moveTo(tx(i),ty(l.weight)):ctx.lineTo(tx(i),ty(l.weight)));
+  ctx.lineTo(tx(logs.length-1),PAD.t+cH);ctx.lineTo(tx(0),PAD.t+cH);
+  ctx.closePath();ctx.fillStyle=grd;ctx.fill();
+
+  // Line
+  ctx.beginPath();ctx.strokeStyle=lineColor;ctx.lineWidth=2.5;ctx.lineJoin='round';ctx.lineCap='round';
+  logs.forEach((l,i)=>i===0?ctx.moveTo(tx(i),ty(l.weight)):ctx.lineTo(tx(i),ty(l.weight)));
+  ctx.stroke();
+
+  // Dots
+  const nth=Math.max(1,Math.ceil(logs.length/8));
+  logs.forEach((l,i)=>{
+    ctx.beginPath();ctx.arc(tx(i),ty(l.weight),i===logs.length-1?5.5:3.5,0,Math.PI*2);
+    ctx.fillStyle=i===logs.length-1?lineColor:lineColor+'99';ctx.fill();
+    if(i===logs.length-1){ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.stroke();}
+    if(i%nth===0||i===logs.length-1){
+      ctx.fillStyle=t3;ctx.font='9px Outfit,sans-serif';ctx.textAlign='center';
+      const lbl=l.date.slice(5);ctx.fillText(lbl,tx(i),H-PAD.b+13);
+    }
+  });
+
+  // Latest value label
+  const li=logs.length-1;
+  ctx.fillStyle=t1;ctx.font='bold 11px Outfit,sans-serif';ctx.textAlign='center';
+  ctx.fillText(vals[li]+' '+u,tx(li),ty(vals[li])-10);
+}
 
 /* ═══════════════════════════════════════════════════════════════
    SETTINGS
@@ -2552,7 +2959,6 @@ window.addEventListener('resize',()=>{if(curPage==='track')setTimeout(drawCharts
 function renderSettings(){
   const dark=gTheme()==='dark';ge('themeChk').checked=dark;if(ge('themeChk2'))ge('themeChk2').checked=dark;
   ge('unitSel').value=gUnit();
-  ge('prToggle').checked=gPRE();ge('prSection').className=gPRE()?'':'hide';
   renderMetricsForm();renderPRList();renderPRExSel();
 }
 function setUnit(u){
@@ -2576,7 +2982,9 @@ function saveMetrics(){
   if(u==='imperial'){mt.heightFt=parseFloat(ge('mtFt')?.value)||null;mt.heightIn=parseFloat(ge('mtIn')?.value)||null}
   else mt.heightCm=parseFloat(ge('mtCm')?.value)||null;
   mt.weight=parseFloat(ge('mtWt')?.value)||null;
-  sMet(mt);toast('Saved','ok');
+  sMet(mt);
+  if(mt.weight>0)autoLogWeight(mt.weight,u);
+  toast('Saved ✓','ok');
 }
 async function resetMetrics(){const ok=await confirm2('Reset body metrics?','Reset');if(!ok)return;sMet({});renderMetricsForm();toast('Reset','bad')}
 function renderPRExSel(q=''){
@@ -2593,14 +3001,14 @@ function filterPRExList(){
 function renderPRList(){
   const prs=gPRs(),u=uLabel(),keys=Object.keys(prs);const allEx=getAllEx();
   ge('prList').innerHTML=keys.length
-    ?`<table class="pr-table"><thead><tr><th>Exercise</th><th>1RM (${u})</th><th>RPE</th><th>Rec@5</th><th></th></tr></thead><tbody>${keys.map(id=>{const ex=allEx.find(e=>e.id===id);if(!ex)return'';const pr=prs[id];const rec=calcRec(id,5);return`<tr><td>${esc(ex.name)}</td><td><strong>${pr.rm1}</strong></td><td>${pr.rpe||'—'}</td><td>${rec!==null?rec+' '+u:'—'}</td><td><button class="btn btn-d btn-sm btn-ic" onclick="delPR('${id}')">×</button></td></tr>`}).join('')}</tbody></table>`
-    :`<div class="tc" style="font-size:.82rem;padding:.65rem 0">No PRs yet. Select an exercise above and click Add / Edit.</div>`;
+    ?`<table class="pr-table"><thead><tr><th>Exercise</th><th>1RM (${u})</th><th>Rec @ 5 reps</th><th></th></tr></thead><tbody>${keys.map(id=>{const ex=allEx.find(e=>e.id===id);if(!ex)return'';const pr=prs[id];const rec=calcRec(id,5);return`<tr><td>${esc(ex.name)}</td><td><strong>${pr.rm1}</strong></td><td>${rec!==null?rec+' '+u:'—'}</td><td><button class="btn btn-d btn-sm btn-ic" onclick="delPR('${id}')">×</button></td></tr>`}).join('')}</tbody></table>`
+    :`<div class="tc" style="font-size:.82rem;padding:.65rem 0;color:var(--t3)">No PRs yet — search for an exercise above and tap "+ Set PR".</div>`;
 }
 let _prExId=null;
-function openPRModal(){_prExId=ge('prExSel').value;const ex=getAllEx().find(e=>e.id===_prExId);if(!ex)return;ge('prExName').textContent=ex.name;ge('prRmLbl').textContent=`1RM (${uLabel()})`;const pr=gPRs()[_prExId]||{};ge('pr1RM').value=pr.rm1||'';ge('prRPE').value=pr.rpe||'';openOv('ovPR')}
-function savePR(){const rm1=parseFloat(ge('pr1RM').value);if(!rm1||rm1<=0){toast('Enter a valid 1RM','bad');return}const rpe=parseFloat(ge('prRPE').value)||null;const prs=gPRs();prs[_prExId]={rm1,rpe};sPRs(prs);closeOv('ovPR');renderPRList();toast('PR saved','ok')}
+function openPRModal(){_prExId=ge('prExSel').value;const ex=getAllEx().find(e=>e.id===_prExId);if(!ex)return;ge('prExName').textContent=ex.name;ge('prRmLbl').textContent=`My 1RM — ${uLabel()} (max single rep weight)`;const pr=gPRs()[_prExId]||{};ge('pr1RM').value=pr.rm1||'';openOv('ovPR')}
+function savePR(){const rm1=parseFloat(ge('pr1RM').value);if(!rm1||rm1<=0){toast('Enter your 1RM weight','bad');return}const prs=gPRs();prs[_prExId]={rm1};sPRs(prs);closeOv('ovPR');renderPRList();toast('PR saved 🏆','ok')}
 async function delPR(id){const ex=getAllEx().find(e=>e.id===id);const ok=await confirm2(`Delete PR for "${ex?.name||id}"?`,'Delete PR');if(!ok)return;const prs=gPRs();delete prs[id];sPRs(prs);renderPRList();toast('Deleted','bad')}
-function setPREnabled(on){sPRE(on);ge('prSection').className=on?'':'hide';if(on)renderPRList()}
+function setPREnabled(on){sPRE(on);} // kept for compat
 ge('exportBtn').addEventListener('click',()=>{
   const b=new Blob([JSON.stringify(expAll(),null,2)],{type:'application/json'});
   const u=URL.createObjectURL(b);const a=document.createElement('a');
@@ -2656,18 +3064,19 @@ function renderObPRs(){
   const u=uLabel();
   const KEY_EX=OB_PR_EXERCISES.map(id=>getAllEx().find(e=>e.id===id)).filter(Boolean);
   ge('obPRList').innerHTML=`
-    <div class="ob-pr-row" style="font-size:.68rem;color:var(--t3);font-weight:700;letter-spacing:.05em;text-transform:uppercase">
-      <div>Exercise</div><div>1RM (${u})</div><div>RPE</div>
+    <div style="background:var(--accl);border:1px solid var(--acc);border-radius:var(--r1);padding:.6rem .8rem;margin-bottom:.75rem;font-size:.77rem;line-height:1.6;color:var(--acc)">
+      <strong>What is a 1RM?</strong> Your 1-Rep Max is the most you can lift for exactly one rep with good form. We use it to suggest weights during workouts. Leave blank if you don't know yet — you can add it later in Settings.
+    </div>
+    <div class="ob-pr-row" style="font-size:.68rem;color:var(--t3);font-weight:700;letter-spacing:.05em;text-transform:uppercase;grid-template-columns:1fr 100px">
+      <div>Exercise</div><div>1RM (${u})</div>
     </div>
     ${KEY_EX.map(ex=>{
       const pr=gPRs()[ex.id]||{};
-      return `<div class="ob-pr-row">
+      return `<div class="ob-pr-row" style="grid-template-columns:1fr 100px">
         <div class="ob-pr-name" title="${esc(ex.name)}">${esc(ex.name)}</div>
         <input type="number" class="fc" data-prid="${ex.id}" data-field="rm1" min="0" step="2.5" placeholder="0" value="${pr.rm1||''}" style="padding:.35rem .5rem;font-size:.82rem">
-        <input type="number" class="fc" data-prid="${ex.id}" data-field="rpe" min="1" max="10" step=".5" placeholder="RPE" value="${pr.rpe||''}" style="padding:.35rem .5rem;font-size:.82rem">
       </div>`;
-    }).join('')}
-    <div style="font-size:.74rem;color:var(--t3);margin-top:.5rem;line-height:1.5">💡 <em>1RM = your max single rep weight. Leave blank to skip.</em></div>`;
+    }).join('')}`;
 }
 
 function obNext(){
@@ -2682,7 +3091,7 @@ function obNext(){
     ge('obDot'+(obStep-1)).classList.remove('on');
     ge('obDot'+obStep).classList.add('on');
     if(obStep===1)renderObMetForm();
-    if(obStep===2){sPRE(false);renderObPRs();}
+    if(obStep===2){renderObPRs();}
   }
 }
 
@@ -2707,23 +3116,19 @@ function obSaveMetrics(){
   }
   mt.weight=parseFloat(ge('obWt')?.value)||null;
   sMet(mt);
+  if(mt.weight>0)autoLogWeight(mt.weight,u);
   obNext();
 }
 
 function obSavePRs(){
   const inputs=ge('obPRList').querySelectorAll('input[data-prid]');
-  const prs=gPRs();
+  const prs={};
   inputs.forEach(inp=>{
-    const id=inp.dataset.prid,field=inp.dataset.field;
+    const id=inp.dataset.prid;
     const val=parseFloat(inp.value);
-    if(!prs[id])prs[id]={};
-    if(!isNaN(val)&&val>0)prs[id][field]=val;
+    if(!isNaN(val)&&val>0)prs[id]={rm1:val};
   });
-  // Only save PRs where rm1 exists
-  const cleaned={};
-  Object.keys(prs).forEach(id=>{if(prs[id].rm1>0)cleaned[id]=prs[id]});
-  sPRs(cleaned);
-  if(Object.keys(cleaned).length>0)sPRE(true);
+  sPRs(prs);
   finishOnboarding();
 }
 
