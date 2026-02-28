@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#5b3aff">
 <title>FitQuest</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,700;1,400&display=swap');
@@ -45,16 +49,19 @@
 
 /* ─── RESET ─── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{font-size:15px;scroll-behavior:smooth}
+html{font-size:15px;scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body{
   font-family:var(--ff);background:var(--bg);color:var(--t1);
   line-height:1.6;min-height:100vh;
   transition:background var(--tr-t),color var(--tr-t);
   padding-bottom:40px;
+  overscroll-behavior-y:none;
+  -webkit-tap-highlight-color:transparent;
 }
 h1,h2,h3{font-family:var(--ff-d);line-height:1.2}
 button,input,select,textarea{font-family:inherit}
-button{cursor:pointer}
+button{cursor:pointer;touch-action:manipulation}
+a{touch-action:manipulation}
 
 /* ─── NAV ─── */
 #nav{
@@ -191,7 +198,7 @@ button{cursor:pointer}
 .lbl{display:block;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--t2);margin-bottom:.3rem;transition:color var(--tr-t)}
 .fc{
   width:100%;padding:.5rem .78rem;border:1.5px solid var(--border);border-radius:var(--r1);
-  background:var(--input);color:var(--t1);font-size:.88rem;
+  background:var(--input);color:var(--t1);font-size:16px;
   transition:border-color .15s,background var(--tr-t),color var(--tr-t);
   appearance:none;-webkit-appearance:none;
 }
@@ -305,7 +312,7 @@ textarea.fc{resize:vertical;min-height:72px}
 .wkinputs{display:grid;grid-template-columns:repeat(4,1fr);gap:.3rem}
 .wkinputs input{
   padding:.28rem .32rem;border:1.5px solid var(--border);border-radius:6px;
-  background:var(--input);color:var(--t1);font-size:.76rem;text-align:center;width:100%;
+  background:var(--input);color:var(--t1);font-size:16px;text-align:center;width:100%;
   transition:border-color .15s,background var(--tr-t);
 }
 .wkinputs input:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 2px var(--accl)}
@@ -411,7 +418,7 @@ textarea.fc{resize:vertical;min-height:72px}
 .ai-input-row{display:flex;gap:.5rem;padding:.72rem;border-top:1px solid var(--border);background:var(--card);transition:background var(--tr-t)}
 .ai-input-row input{
   flex:1;padding:.48rem .8rem;border:1.5px solid var(--border);
-  border-radius:var(--rpill);background:var(--input);color:var(--t1);font-size:.86rem;
+  border-radius:var(--rpill);background:var(--input);color:var(--t1);font-size:16px;
   transition:border-color .15s,background var(--tr-t);
 }
 .ai-input-row input:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px var(--accl)}
@@ -540,7 +547,7 @@ textarea.fc{resize:vertical;min-height:72px}
 .aw-set-row.current .aw-set-row-num{color:var(--acc)}
 .aw-set-input{
   padding:.4rem .5rem;border:1.5px solid var(--border);border-radius:8px;
-  background:var(--input);color:var(--t1);font-size:.9rem;text-align:center;width:100%;
+  background:var(--input);color:var(--t1);font-size:16px;text-align:center;width:100%;
   font-weight:600;transition:border-color .15s,background var(--tr-t);
 }
 .aw-set-input:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 2px var(--accl)}
@@ -968,19 +975,26 @@ canvas{display:block;width:100%}
 /* ─── RESPONSIVE ─── */
 @media(max-width:960px){.charts{grid-template-columns:1fr}.wkgrid{grid-template-columns:repeat(4,1fr)}.weekrow{grid-template-columns:repeat(4,1fr)}}
 
-/* LIBRARY: bigger tiles on desktop handled by base styles */
-
 @media(max-width:640px){
-  /* Hide top nav links and burger — use bottom nav instead */
+  /* Hide top nav, use bottom nav */
   .navlinks{display:none!important}
   .burger{display:none!important}
-  /* Hide floating next pill on mobile */
   #nextPill{display:none!important}
-  /* Add bottom padding so content clears the bottom nav */
-  .page{padding:1rem .9rem 5.5rem}
-  #mobileNav{display:block}
 
-  .pt{font-size:1.5rem}
+  /* Safe-area-aware bottom padding */
+  .page{padding:1rem .9rem calc(5rem + env(safe-area-inset-bottom, 0px))}
+  #mobileNav{
+    display:block;
+    padding-bottom:env(safe-area-inset-bottom, 0px);
+  }
+
+  /* Bottom nav items need bigger tap area */
+  .mob-nav-item{min-height:52px;padding:.6rem .2rem calc(.45rem + env(safe-area-inset-bottom, 0px))}
+
+  /* Typography */
+  .pt{font-size:1.45rem}
+
+  /* Grid layouts */
   .wkgrid{grid-template-columns:repeat(2,1fr)}
   .weekrow{grid-template-columns:repeat(2,1fr)}
   .wkinputs{grid-template-columns:repeat(2,1fr)}
@@ -991,9 +1005,80 @@ canvas{display:block;width:100%}
   .option-grid{grid-template-columns:repeat(3,1fr)}
   .aw-set{grid-template-columns:1.4rem 1fr 1fr auto}
   .aw-nc{display:none}
-  .modal,.modal-w,.modal-lg{max-width:99vw;border-radius:var(--r2)}
   .fg-row.c2,.fg-row.c3,.fg-row.c4{grid-template-columns:1fr 1fr}
+
+  /* Modals slide up from bottom like native sheets */
+  .ov{padding:0;align-items:flex-end}
+  .modal,.modal-w,.modal-lg{
+    max-width:100vw;width:100%;
+    border-radius:18px 18px 0 0;
+    max-height:92svh;
+    overflow-y:auto;-webkit-overflow-scrolling:touch;
+    padding-bottom:max(1.5rem, env(safe-area-inset-bottom, 1rem));
+    animation:sheetUp .28s cubic-bezier(.22,1,.36,1)!important;
+  }
+
+  /* Bigger touch targets everywhere */
+  .btn{min-height:44px}
+  .btn-sm{min-height:40px}
+  .btn-ic{min-height:40px;min-width:40px}
+  .mclose{min-height:44px;min-width:44px;display:flex;align-items:center;justify-content:center}
+  .fc{min-height:44px}
+
+  /* Active workout compact on phone */
+  .aw-hdr{padding:.75rem 1rem}
+  .aw-body{padding:1rem .9rem}
+  .aw-ex-big-name{font-size:1.7rem}
+  .aw-timer-wrap,.aw-timer-svg{width:88px;height:88px}
+  .aw-timer-text{font-size:.95rem}
+  .aw-check-big{width:82px;height:82px}
+
+  /* AI generator */
+  .opt-btn{padding:.75rem .4rem;font-size:.8rem}
+  .opt-btn .oi{font-size:1.35rem}
+  .equip-grid{grid-template-columns:repeat(3,1fr)}
+
+  /* Planner: vertical stack instead of 7-col grid */
+  .wkgrid{grid-template-columns:1fr}
+  .wkday{min-height:auto;flex-direction:row;flex-wrap:wrap;align-items:center;gap:.5rem .75rem;padding:.65rem .9rem}
+  .wkdh{min-width:2.2rem}
+  .wkdd{min-width:1.8rem;text-align:center;margin-bottom:0}
+  .wkdw{flex-direction:row;flex-wrap:wrap;gap:.25rem;flex:1}
+  .add-hint{display:none}
+
+  /* Toasts above the nav */
+  #toasts{bottom:calc(4.5rem + env(safe-area-inset-bottom, 0px));right:.9rem}
+
+  /* Weight tracker */
+  .wt-stats-row{grid-template-columns:repeat(2,1fr)}
+
+  /* Builder filter chips */
+  .bld-equip-chip{font-size:.68rem;padding:.18rem .48rem}
 }
+
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+
+/* ─── GLOBAL iOS/MOBILE UX ─── */
+
+/* Prevent double-tap zoom on all tappable elements without disabling scroll */
+button,a,label,[role="button"]{touch-action:manipulation}
+
+/* Kill the grey flash on tap in Safari */
+*{-webkit-tap-highlight-color:transparent}
+
+/* Momentum scrolling in overflow containers on iOS */
+.ai-msgs,.bld-picker,#bldPicker,.aig-add-ex-list,.ob-prs,.sum-breakdown,
+.modal,.modal-w,.modal-lg,.page{
+  -webkit-overflow-scrolling:touch;
+}
+
+/* Prevent user selection on UI controls (feels more app-like) */
+.btn,.mob-nav-item,.opt-btn,.msel-btn,.equip-btn,.chip,
+.ob-goal-btn,.muscle-tile,.excard,.plantag,.daymini,
+.bld-equip-chip,.aig-add-equip-chip,.aig-ex-row{
+  -webkit-user-select:none;user-select:none;
+}
+
 </style>
 </head>
 <body>
@@ -1332,7 +1417,7 @@ canvas{display:block;width:100%}
 </div>
 
 <!-- Custom Exercise AI chat -->
-<div class="ov" id="ovCustomEx">
+<div class="ov" id="ovCustomEx" style="z-index:2100">
   <div class="modal modal-w">
     <div class="mhd">
       <div><h2 class="mtitle">✦ Custom Exercise</h2><div style="font-size:.76rem;color:var(--t3)">Describe it — AI identifies muscles & equipment</div></div>
@@ -2209,11 +2294,22 @@ ge('ceSend').addEventListener('click',()=>sendCEText());
 ge('ceInput').addEventListener('keydown',e=>{if(e.key==='Enter')sendCEText()});
 
 function openCustomEx(){
-  CE={phase:'input',pending:{}};
+  CE={phase:'input',pending:{},_fromAIPreview:false};
   ge('ceMsg').innerHTML='';
   ge('ceInput').value='';
   setChips([]);
   botMsg("Hi! 👋 Describe any exercise you want to add — name it and tell me what it involves. I'll figure out the muscles and equipment!");
+  openOv('ovCustomEx');
+  setTimeout(()=>ge('ceInput').focus(),120);
+}
+
+// Opens custom exercise chat from within AI preview — auto-adds to workout on save
+function openCustomExFromPreview(){
+  CE={phase:'input',pending:{},_fromAIPreview:true};
+  ge('ceMsg').innerHTML='';
+  ge('ceInput').value='';
+  setChips([]);
+  botMsg("Let's create a custom exercise! ✏️ Describe it — name it and tell me what it targets. I'll sort out the muscle group and equipment, then add it straight to your workout!");
   openOv('ovCustomEx');
   setTimeout(()=>ge('ceInput').focus(),120);
 }
@@ -2341,6 +2437,11 @@ function saveCE(){
   closeOv('ovCustomEx');
   toast(`"${ex.name}" added to library!`,'ok');
   if(curPage==='lib')renderLib();
+  // If launched from AI preview context, auto-add the new exercise to the workout
+  if(CE._fromAIPreview){
+    CE._fromAIPreview=false;
+    addToAIWorkout(ex.id);
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -2590,7 +2691,17 @@ function renderAIPreview(){
     <div class="aig-preview-hd">${AG.result.length} exercises · ~${estDur(AG.result)} min · ${cap(AG.diff)}</div>
     ${timedNote}
     <div class="aig-ex-list">${rows}</div>
-    ${AG.result.length===0?'<div class="empty" style="padding:1rem"><div class="empty-title">All exercises removed</div><div class="empty-sub">Go back and regenerate, or add exercises below.</div></div>':''}
+    ${AG.result.length===0?`<div class="empty" style="padding:1rem">
+      <div class="empty-ico">🏋️</div>
+      <div class="empty-title">All exercises removed</div>
+      <div class="empty-sub">Add exercises below, or generate a fresh workout.</div>
+      <button class="btn btn-ai btn-sm" onclick="AG.result=genWorkout();renderAIPreview()" style="margin-top:.3rem">✨ Regenerate Workout</button>
+    </div>`:''}
+  </div>
+  <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin-top:.55rem;margin-bottom:.75rem">
+    <span style="font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--t3);flex:1">Workout not right?</span>
+    <button class="btn btn-sm btn-ai" onclick="AG.result=genWorkout();renderAIPreview()" title="Re-roll exercises with same settings">🔀 Regenerate</button>
+    <button class="btn btn-sm btn-s" onclick="closeOv('ovAIGen');setTimeout(openAIGen,120)" title="Start the AI builder fresh">✨ New AI Workout</button>
   </div>
   <div class="aig-add-panel" id="aigAddPanel">
     <div class="aig-add-panel-hd" onclick="toggleAigAdd()">
@@ -2614,6 +2725,16 @@ function renderAIPreview(){
         <button class="aig-add-equip-chip" data-equip="kettlebell" onclick="setAigEquip(this,'kettlebell')">🫙 Kettlebell</button>
       </div>
       <div class="aig-add-ex-list" id="aigAddExList"></div>
+      <div id="aigAddFooter" style="border-top:1px solid var(--border);margin-top:.5rem;padding:.65rem 0 .2rem">
+        <div style="background:linear-gradient(135deg,rgba(91,58,255,.08),rgba(168,85,247,.08));border:1.5px dashed var(--acc);border-radius:var(--r2);padding:.8rem 1rem;display:flex;align-items:center;gap:.75rem">
+          <div style="font-size:1.5rem;flex-shrink:0">✏️</div>
+          <div style="flex:1;min-width:0">
+            <div style="font-weight:700;font-size:.83rem;color:var(--t1);margin-bottom:.1rem">Can't find your exercise?</div>
+            <div style="font-size:.73rem;color:var(--t2)">Create a custom one — AI adds it straight to this workout</div>
+          </div>
+          <button class="btn btn-p btn-sm" onclick="openCustomExFromPreview()" style="flex-shrink:0;white-space:nowrap">+ Create</button>
+        </div>
+      </div>
     </div>
   </div>`;
   // populate add list immediately
@@ -2661,7 +2782,23 @@ function renderAigAddList(){
     if(q&&!e.name.toLowerCase().includes(q)&&!e.muscle.includes(q))return false;
     return true;
   }).slice(0,30);
-  if(!fil.length){listEl.innerHTML=`<div style="padding:.6rem 0;font-size:.82rem;color:var(--t3);text-align:center">No exercises found</div>`;return;}
+  if(!fil.length){
+    const qVal=(ge('aigAddQ')?.value||'').trim();
+    listEl.innerHTML=`<div style="padding:.5rem 0 .25rem">
+      <div style="font-size:.82rem;color:var(--t3);margin-bottom:.7rem;text-align:center">
+        ${qVal?`No exercises found for <strong style="color:var(--t1)">"${esc(qVal)}"</strong>`:'No exercises found with these filters'}
+      </div>
+      <div style="background:linear-gradient(135deg,rgba(91,58,255,.08),rgba(168,85,247,.08));border:1.5px dashed var(--acc);border-radius:var(--r2);padding:.85rem 1rem;display:flex;align-items:center;gap:.75rem">
+        <div style="font-size:1.6rem;flex-shrink:0">✏️</div>
+        <div style="flex:1;min-width:0">
+          <div style="font-weight:700;font-size:.84rem;color:var(--t1);margin-bottom:.15rem">Create a custom exercise</div>
+          <div style="font-size:.74rem;color:var(--t2)">Describe any move — AI adds it straight to this workout</div>
+        </div>
+        <button class="btn btn-p btn-sm" onclick="openCustomExFromPreview()" style="flex-shrink:0;white-space:nowrap">+ Create</button>
+      </div>
+    </div>`;
+    return;
+  }
   const u=uLabel();
   listEl.innerHTML=fil.map(e=>{
     const diffIcon=e.diff==='beginner'?'🟢':e.diff==='advanced'?'🔴':'🟡';
@@ -4185,6 +4322,83 @@ function restartSetup(){
   // Simpler: just reload the page keeping storage
   location.reload();
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE UX — iOS Safari fixes
+═══════════════════════════════════════════════════════════════ */
+(function(){
+  // 1. Prevent double-tap zoom: block the second tap within 300ms
+  //    This fires before any click so it doesn't affect normal taps.
+  let lastTap=0;
+  document.addEventListener('touchend',function(e){
+    const now=Date.now();
+    if(now-lastTap<320){
+      e.preventDefault(); // block zoom
+    }
+    lastTap=now;
+  },{passive:false});
+
+  // 2. After keyboard dismisses on iOS the scroll position can get
+  //    stuck leaving a blank gap. Nudging scrollY restores it.
+  document.addEventListener('focusout',function(){
+    if(/iPhone|iPad|iPod/.test(navigator.userAgent)){
+      // tiny delay lets iOS finish collapsing the keyboard
+      setTimeout(function(){
+        window.scrollTo(0,window.scrollY||0);
+      },200);
+    }
+  });
+
+  // 3. Lock body scroll while a modal is open (iOS doesn't respect
+  //    overflow:hidden on body when momentum-scrolling is active).
+  //    We save/restore the scroll position to avoid a jump.
+  let _scrollY=0;
+  function lockScroll(){
+    _scrollY=window.scrollY;
+    document.body.style.position='fixed';
+    document.body.style.top=-_scrollY+'px';
+    document.body.style.width='100%';
+  }
+  function unlockScroll(){
+    document.body.style.position='';
+    document.body.style.top='';
+    document.body.style.width='';
+    window.scrollTo(0,_scrollY);
+  }
+
+  // Patch openOv / closeOv only on mobile
+  if(window.innerWidth<=640||/iPhone|iPad|iPod|Android/.test(navigator.userAgent)){
+    const _openOv=window.openOv;
+    window.openOv=function(id){
+      _openOv(id);
+      lockScroll();
+    };
+    const _closeOv=window.closeOv;
+    window.closeOv=function(id){
+      _closeOv(id);
+      // Only unlock when no overlays remain open
+      if(!document.querySelector('.ov.on'))unlockScroll();
+    };
+  }
+
+  // 4. Active workout covers full screen — apply same lock
+  const _startWorkout=window.startWorkout;
+  if(_startWorkout){
+    window.startWorkout=function(date,wkId){
+      _startWorkout(date,wkId);
+      if(/iPhone|iPad|iPod|Android/.test(navigator.userAgent))lockScroll();
+    };
+  }
+  ['cancelWorkout','finishWorkout'].forEach(function(fn){
+    const orig=window[fn];
+    if(orig){
+      window[fn]=function(){
+        orig.apply(this,arguments);
+        if(!document.querySelector('.ov.on'))unlockScroll();
+      };
+    }
+  });
+})();
 
 /* ═══════════════════════════════════════════════════════════════
    INIT
